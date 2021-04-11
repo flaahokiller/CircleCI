@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/KERNEL_X01BD -b EAS-REBASE X01BD
+git clone https://github.com/ramadhannangga/KERNEL_X01BD -b EAS-REBASE-11 X01BD
 cd X01BD
 git clone --depth=1 https://github.com/ramadhannangga/Toolchain-Clang $clangDir clang
 git clone https://github.com/ramadhannangga/aarch64-linux-gnu -b stable-gcc $gcc64Dir gcc
