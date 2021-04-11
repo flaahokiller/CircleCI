@@ -3,8 +3,8 @@ echo "Cloning dependencies"
 git clone https://github.com/ramadhannangga/KERNEL_X01BD -b EAS-REBASE X01BD
 cd X01BD
 git clone --depth=1 https://github.com/ramadhannangga/Toolchain-Clang $clangDir clang
-git clone https://github.com/ramadhannangga/aarch64-linux-android-4.9 $gcc64Dir gcc
-git clone https://github.com/ramadhannangga/arm-linux-androideabi-4.9 $gcc32Dir gcc32
+git clone https://github.com/ramadhannangga/aarch64-linux-gnu -b stable-gcc $gcc64Dir gcc
+git clone https://github.com/ramadhannangga/arm-linux-gnueabi -b stable-gcc $gcc32Dir gcc32
 git clone https://github.com/ramadhannangga/Anykernel3 AnyKernel
 echo "Done"
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
@@ -12,7 +12,7 @@ TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-FOR="XR"
+FOR="R"
 COMPILE=CLANG
 KERNELNAME="LithoWonder-EAS"
 KERNEL_DIR=$(pwd)
@@ -22,7 +22,7 @@ export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head 
 export ARCH=arm64
 export KERNELNAME=LithoWonder-EAS
 export KBUILD_BUILD_USER="ramadhannangga"
-export KBUILD_BUILD_HOST=localhost-LA.UM.8.2.r2-04400-sdm660.0
+export KBUILD_BUILD_HOST=localhost-LA.UM.9.2.r1-02700-SDMxx0.0
 export TOOLCHAIN=clang
 export DEVICES=X01BD
 # sticker plox
@@ -65,8 +65,8 @@ function compile() {
                     ARCH=arm64 \
                     SUBARCH=arm64 \
                     CC=clang \
-                    CROSS_COMPILE=aarch64-linux-android- \
-                    CROSS_COMPILE_ARM32=arm-linux-androideabi- \
+                    CROSS_COMPILE=aarch64-linux-gnu- \
+                    CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
                     AR=llvm-ar \
                     NM=llvm-nm \
                     OBJCOPY=llvm-objcopy \
