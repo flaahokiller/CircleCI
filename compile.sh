@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/KERNEL_X01BD -b EAS-REBASE-11 X01BD
+git clone https://github.com/ramadhannangga/KERNEL_X01BD -b EAS-REBASE X01BD
 cd X01BD
 git clone --depth=1 https://github.com/ramadhannangga/Toolchain-Clang $clangDir clang
 git clone https://github.com/ramadhannangga/x86_64-aarch64-none-linux-gnu $gcc64Dir gcc
@@ -12,7 +12,7 @@ TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-FOR="R"
+FOR="X"
 COMPILE=CLANG
 KERNELNAME="LithoWonder-EAS"
 KERNEL_DIR=$(pwd)
@@ -22,7 +22,7 @@ export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head 
 export ARCH=arm64
 export KERNELNAME=LithoWonder-EAS
 export KBUILD_BUILD_USER="ramadhannangga"
-export KBUILD_BUILD_HOST=reignite-LA.UM.9.2.r1-02700-SDMxx0.0
+export KBUILD_BUILD_HOST=reignite-LA.UM.8.2.r2-04400-sdm660.0
 export TOOLCHAIN=clang
 export DEVICES=X01BD
 # sticker plox
