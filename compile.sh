@@ -22,7 +22,7 @@ export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head 
 export ARCH=arm64
 export KERNELNAME=LithoWonder-EAS
 export KBUILD_BUILD_USER="ramadhannangga"
-export KBUILD_BUILD_HOST=reignite-LA.UM.8.2.r2-04400-sdm660.0
+export KBUILD_BUILD_HOST=localhost-LA.UM.8.2.r2-04400-sdm660.0
 export TOOLCHAIN=clang
 export DEVICES=X01BD
 # sticker plox
@@ -83,7 +83,7 @@ function compile() {
 # Zipping
 function zipping() {
     cd AnyKernel || exit 1
-    zip -r9 [$FOR]${VERSI}-${KERNELNAME}.zip *
+    zip -r9 [$TGL][$FOR]${VERSI}-${KERNELNAME}.zip *
     cd ..
 }
 sticker
