@@ -6,12 +6,14 @@ jobs:
    steps:
       - run:
           command: |
-           git config --global user.name "ramadhannangga"
-           git config --global user.email "ramadhananggayudhanto@gmail.com"
-           git config --global color.ui false
-           git clone --depth=1 https://github.com/${CIRCLE_PROJECT_USERNAME}/CircleCI -b BUILD-Q
-           cd CircleCI
-           bash compile.sh
+            check=$(ls /usr/lib/x86_64-linux-gnu | grep libisl.so -m1)
+            if [ ! -z "$check" ]; then if [ "$check" != "libisl.so.15" ]; then cp -af /usr/lib/x86_64-linux-gnu/$check /usr/lib/x86_64-linux-gnu/libisl.so.15; fi; fi
+            check=$(ls /usr/lib/x86_64-linux-gnu | grep libz3.so -m1)
+            if [ ! -z "$check" ]; then if [ "$check" != "libz3.so.4.8" ]; then cp -af /usr/lib/x86_64-linux-gnu/$check /usr/lib/x86_64-linux-gnu/libz3.so.4.8; fi; fi
+            branch=BUILD-Q
+            git clone --depth=1 https://github.com/ramadhannangga/CircleCI.git -b BUILD-Q compile
+            cd compile
+            source compile.sh
 workflows:
   version: 2.1
   cooking:
