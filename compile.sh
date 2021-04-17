@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/android_kernel_asus_sdm660 -b lineage-17.1 X01BD
+git clone https://github.com/ramadhannangga/android_kernel_qcom_msm8998 -b rebase X01BD
 cd X01BD
-git clone --depth=1 https://github.com/NusantaraDevs/DragonTC $clangDir clang
-git clone --depth=1 https://github.com/chips-project/aarch64-elf $gcc64Dir gcc
-git clone --depth=1 https://github.com/chips-project/arm-eabi $gcc32Dir gcc32
-git clone --depth=1 https://github.com/ramadhannangga/Anykernel3-ASUS AnyKernel
+git clone --depth=1 https://github.com/ramadhannangga/Toolchain-Clang $clangDir clang
+git clone https://github.com/ramadhannangga/aarch64-linux-android-4.9 $gcc64Dir gcc
+git clone https://github.com/ramadhannangga/arm-linux-androideabi-4.9 $gcc32Dir gcc32
+git clone https://github.com/ramadhannangga/Anykernel3 AnyKernel
 echo "Done"
 IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
 TANGGAL=$(date +"%Y-%m-%d")
 TGL=$(date +"%m%d")
 START=$(date +"%s")
 COMMIT=$(git log --pretty=format:'%h' -1)
-VARIANT="XR"
+FOR="TEST"
 COMPILE=CLANG
-KERNELNAME="LithoWonder"
+KERNELNAME="perf"
 KERNEL_DIR=$(pwd)
 VERSI=(""4.4.$(cat "$(pwd)/Makefile" | grep "SUBLEVEL =" | sed 's/SUBLEVEL = *//g')$(cat "$(pwd)/Makefile" | grep "EXTRAVERSION =" | sed 's/EXTRAVERSION = *//g')"")
-PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}"
+PATH="${KERNEL_DIR}/clang/bin:${KERNEL_DIR}/gcc/bin:${KERNEL_DIR}/gcc32/bin:${PATH}" 
 export KBUILD_COMPILER_STRING="$(${KERNEL_DIR}/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')" 
 export ARCH=arm64
-export KERNELNAME=LithoWonder
-export KBUILD_BUILD_USER="Wonder"
-export KBUILD_BUILD_HOST=CircleCI-server
+export KERNELNAME=perf
+export KBUILD_BUILD_USER="ramadhannangga"
+export KBUILD_BUILD_HOST=localhost-LA.UM.8.2.r2-04400-sdm660.0
 export TOOLCHAIN=clang
 export DEVICES=X01BD
 # sticker plox
@@ -65,8 +65,8 @@ function compile() {
                     ARCH=arm64 \
                     SUBARCH=arm64 \
                     CC=clang \
-                    CROSS_COMPILE=aarch64-linux-gnu- \
-                    CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
+                    CROSS_COMPILE=aarch64-none-linux-gnu- \
+                    CROSS_COMPILE_ARM32=arm-none-linux-gnueabihf- \
                     AR=llvm-ar \
                     NM=llvm-nm \
                     OBJCOPY=llvm-objcopy \
@@ -83,7 +83,7 @@ function compile() {
 # Zipping
 function zipping() {
     cd AnyKernel || exit 1
-    zip -r9 [$VARIANT]${VERSI}-${KERNELNAME}.zip *
+    zip -r9 [$TGL][$FOR]${VERSI}-${KERNELNAME}.zip *
     cd ..
 }
 sticker
