@@ -65,8 +65,8 @@ function compile() {
                     ARCH=arm64 \
                     SUBARCH=arm64 \
                     CC=clang \
-                    CROSS_COMPILE=aarch64-none-linux-gnu- \
-                    CROSS_COMPILE_ARM32=arm-none-linux-gnueabihf- \
+                    CROSS_COMPILE=aarch64-linux-android- \
+                    CROSS_COMPILE_ARM32=arm-linux-androideabi- \
                     AR=llvm-ar \
                     NM=llvm-nm \
                     OBJCOPY=llvm-objcopy \
