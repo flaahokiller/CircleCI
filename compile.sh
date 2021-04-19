@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
-git clone https://github.com/ramadhannangga/android_kernel_qcom_msm8998 -b rebase X01BD
+git clone https://github.com/ramadhannangga/android_kernel_qcom_msm8998 -b rebase-main X01BD
 cd X01BD
 git clone --depth=1 https://github.com/ramadhannangga/Toolchain-Clang $clangDir clang
 git clone https://github.com/ramadhannangga/aarch64-linux-android-4.9 $gcc64Dir gcc
